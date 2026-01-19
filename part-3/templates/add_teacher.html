@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Teacher</title>
+    <style>
+        /* Background & font */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        /* Container */
+        .container {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* Heading */
+        h1 {
+            color: #764ba2;
+            margin-bottom: 20px;
+        }
+
+        /* Info box */
+        .info {
+            background: #f3e9ff;
+            color: #764ba2;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        /* Labels & inputs */
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+            text-align: left;
+            color: #555;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 6px rgba(118,75,162,0.4);
+            outline: none;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        button, .btn-cancel {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            color: #fff;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        .btn-cancel {
+            background: #eee;
+            color: #555;
+            text-decoration: none;
+            display: inline-block;
+            line-height: 38px;
+        }
+
+        .btn-cancel:hover {
+            background: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>👨‍🏫 Add New Teacher</h1>
+
+    <div class="info">
+        Enter teacher details. Make sure to select the correct course.
+    </div>
+
+    <form method="POST">
+        <label for="name">Teacher Name</label>
+        <input type="text" id="name" name="name" placeholder="John Smith" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="john@gmail.com" required>
+
+        <label for="course_id">Course</label>
+        <select id="course_id" name="course_id" required>
+            <option value="">-- Select Course --</option>
+            {% for course in courses %}
+                <option value="{{ course.id }}">{{ course.name }}</option>
+            {% endfor %}
+        </select>
+
+        <div class="btn-group">
+            <button type="submit" class="btn-submit">➕ Add Teacher</button>
+            <a href="{{ url_for('teachers') }}" class="btn-cancel">Cancel</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #e0e0e0;
+            padding: 40px;
+        }
+        h2 { color: #ffffff; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1e1e1e;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #333;
+        }
+        th {
+            background: #2196F3;
+            color: white;
+        }
+        tr:nth-child(even) { background: #2a2a2a; }
+        .btn {
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            color: white;
+        }
+        .btn-add { background: #4CAF50; padding: 10px 20px; }
+        .btn-edit { background: #2196F3; }
+        .btn-delete { background: #f44336; }
+    </style>
+</head>
+<body>
+
+<h2>Student Management</h2>
+<a href="{{ url_for('add_student') }}" class="btn btn-add">+ Add Student</a>
+
+{% if students %}
+<table>
+    <tr>
+        <th>ID</th><th>Name</th><th>Email</th><th>Course</th>
+        <th>Age</th><th>Gender</th><th>Address</th><th>Created</th><th>Actions</th>
+    </tr>
+    {% for s in students %}
+    <tr>
+        <td>{{ s.id }}</td>
+        <td>{{ s.name }}</td>
+        <td>{{ s.email }}</td>
+        <td>{{ s.course }}</td>
+        <td>{{ s.age }}</td>
+        <td>{{ s.gender }}</td>
+        <td>{{ s.address }}</td>
+        <td>{{ s.created_at }}</td>
+        <td>
+            <a class="btn btn-edit" href="{{ url_for('edit_student', id=s.id) }}">Edit</a>
+            <a class="btn btn-delete"
+               href="{{ url_for('delete_student', id=s.id) }}"
+               onclick="return confirm('Delete this student?')">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No students found.</p>
+{% endif %}
+
+</body>
+</html>

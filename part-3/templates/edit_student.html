@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Student - Part 3</title>
+    <style>
+        /* Body styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #89f7fe, #66a6ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Form container */
+        .form-container {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            width: 400px;
+            max-width: 90%;
+            transition: transform 0.3s ease;
+        }
+        .form-container:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Heading */
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #3498db;
+            font-size: 28px;
+        }
+
+        /* Info box */
+        .info {
+            background: #eaf4fc;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #2980b9;
+            font-weight: 500;
+        }
+
+        /* Labels */
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Inputs and select */
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+            outline: none;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+        .btn-submit {
+            background: #3498db;
+            color: white;
+        }
+        .btn-submit:hover {
+            background: #5dade2;
+            transform: scale(1.05);
+        }
+        .btn-cancel {
+            background: #e0e0e0;
+            color: #555;
+            margin-left: 10px;
+        }
+        .btn-cancel:hover {
+            background: #d5d5d5;
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 30px 20px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .btn-cancel {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Edit Student</h1>
+
+        <form method="POST">
+            <div class="info">Editing: {{ student.name }} (ID: {{ student.id }})</div>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ student.name }}" required placeholder="Enter student name">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ student.email }}" required placeholder="Enter student email">
+
+            <label for="course_id">Course:</label>
+            <select id="course_id" name="course_id" required>
+                {% for course in courses %}
+                    <option value="{{ course.id }}" {% if course.id == student.course_id %}selected{% endif %}>
+                        {{ course.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn btn-submit">Update Student</button>
+            <a href="{{ url_for('index') }}" class="btn btn-cancel">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
